@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -38,6 +39,14 @@ class JPQLTest {
         TypedQuery<Course> query = em.createNamedQuery("query_get_100", Course.class);
         List<Course> resultList = query.getResultList();
         logger.info("Select c from Course where name like '%' -> {}", resultList);
+    }
+
+    @Test
+    @Transactional
+    void jpql_courses_without_students() {
+        TypedQuery<Course> query = em.createQuery("Select c from Course c where c.students is empty", Course.class);
+        List<Course> resultList = query.getResultList();
+        logger.info("Results -> {}", resultList);
     }
 
 

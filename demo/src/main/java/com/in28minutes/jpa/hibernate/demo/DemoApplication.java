@@ -1,11 +1,10 @@
 package com.in28minutes.jpa.hibernate.demo;
 
 import com.in28minutes.jpa.hibernate.demo.entity.Course;
+import com.in28minutes.jpa.hibernate.demo.entity.FullTimeEmployee;
+import com.in28minutes.jpa.hibernate.demo.entity.PartTimeEmployee;
 import com.in28minutes.jpa.hibernate.demo.entity.Student;
-import com.in28minutes.jpa.hibernate.demo.repository.CourseRepository;
-import com.in28minutes.jpa.hibernate.demo.repository.PassportRepository;
-import com.in28minutes.jpa.hibernate.demo.repository.ReviewRepository;
-import com.in28minutes.jpa.hibernate.demo.repository.StudentRepository;
+import com.in28minutes.jpa.hibernate.demo.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +12,15 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.math.BigDecimal;
+
 
 @SpringBootApplication
 public class DemoApplication implements CommandLineRunner {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
     @Autowired
     private CourseRepository repository;
     @Autowired
@@ -36,7 +40,7 @@ public class DemoApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        studentRepository.insertStudentAndCourse(new Student("Jack"), new Course("Microservices in 100 steps"));
+        //studentRepository.insertStudentAndCourse(new Student("Jack"), new Course("Microservices in 100 steps"));
         //studentRepository.insertHardCodedStudentAndCourse();
         /*List<Review> reviews = new ArrayList<>();
         reviews.add(new Review(50004L, "5", "Great hands-on stuff."));
@@ -80,6 +84,17 @@ public class DemoApplication implements CommandLineRunner {
         Review review = reviewRepository.findById(12L);
         logger.info("Review 12 -{}", review);*/
 
+        /*employeeRepository.insert(new PartTimeEmployee("Jill", new BigDecimal("50")));
+        employeeRepository.insert(new FullTimeEmployee("Jack", new BigDecimal("1000000")));
+
+        logger.info("employees -> {}", employeeRepository.retrieveAllEmployees());*/
+
+
+        /*employeeRepository.insert(new PartTimeEmployee("Jill", new BigDecimal("50")));
+        employeeRepository.insert(new FullTimeEmployee("Jack", new BigDecimal("1000000")));
+
+        logger.info("Full time employees -> {}", employeeRepository.retrieveAllFullTimeEmployees());
+        logger.info("Part time employees -> {}", employeeRepository.retrieveAllPartTimeEmployees());*/
 
     }
 }
@@ -87,6 +102,5 @@ public class DemoApplication implements CommandLineRunner {
     /*ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(DemoApplication.class,
     args);
     CourseRepository courseRepository = configurableApplicationContext.getBean(CourseRepository.class);
-
     Course myCourse = new Course("Tihi");
         courseRepository.save(myCourse);*/
