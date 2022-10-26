@@ -1,13 +1,13 @@
 package com.in28minutes.jpa.hibernate.demo.entity;
 
 
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "student")
-
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

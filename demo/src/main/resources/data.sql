@@ -7,7 +7,8 @@ CREATE TABLE `course` (
                             `id` int AUTO_INCREMENT  PRIMARY KEY,
                             `name` varchar(100) NOT NULL,
                             `last_updated_date` DATETIME DEFAULT NULL ,
-                            `created_date` DATETIME DEFAULT NULL
+                            `created_date` DATETIME DEFAULT NULL,
+                            `is_deleted` BOOLEAN default false
                       );
 
 CREATE TABLE `review` (
@@ -44,7 +45,17 @@ INSERT INTO `course` (`id`,`name`,`created_date`,`last_updated_date`)
 VALUES (10002,'Jpa 50',curdate(),CURDATE());
 
 INSERT INTO `course` (`id`,`name`,`created_date`,`last_updated_date`)
-VALUES (10003,'Jpa 50 steps',CURDATE(),CURDATE());
+VALUES (10003,'Jpa 60 steps',CURDATE(),CURDATE());
+
+INSERT INTO `course` (`id`,`name`,`created_date`,`last_updated_date`)
+VALUES (10004,'Jpa 60 steps',CURDATE(),CURDATE());
+INSERT INTO `course` (`id`,`name`,`created_date`,`last_updated_date`)
+VALUES (10005,'Jpa 70 steps',CURDATE(),CURDATE());
+INSERT INTO `course` (`id`,`name`,`created_date`,`last_updated_date`)
+VALUES (10006,'Jpa 80 steps',CURDATE(),CURDATE());
+INSERT INTO `course` (`id`,`name`,`created_date`,`last_updated_date`)
+VALUES (10007,'Jpa 90 steps',CURDATE(),CURDATE());
+
 
 
 INSERT INTO `review` (`id`,`rating`,`description`,`course_id`)
@@ -75,6 +86,7 @@ VALUES (20002,'Adam',40002);
 
 INSERT INTO `student` (`id`,`name`,`passport_id`)
 VALUES (20003,'Jane', 40003);
+
 
 INSERT INTO `student_course` (`student_id`,`course_id`)
 VALUES (20001, 10001);

@@ -8,9 +8,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -37,8 +38,8 @@ class CourseRepositoryTest {
     @Test
     @DirtiesContext
     public void deleteById_basic() {
-        courseRepository.deleteById(2L);
-        assertNull(courseRepository.findById(1L));
+        courseRepository.deleteById(10002L);
+        assertNull(courseRepository.findById(10002L));
     }
 
     @Test
@@ -67,15 +68,30 @@ class CourseRepositoryTest {
 
     @Test
     @Transactional
-    public void retrieveReviewsForCourse(){
+    public void retrieveReviewsForCourse() {
         Course course1 = courseRepository.findById(10001L);
-        logger.info("course1.getReviews -> {}" , course1.getReviews());
+        logger.info("course1.getReviews -> {}", course1.getReviews());
+    }
+
+    @Test
+    @Transactional(isolation = Isolation.DEFAULT)
+    public void retrieveCourseForReview() {
+        Review review = entityManager.find(Review.class, 50001L);
+        logger.info("review.getCourse -> {}", review.getCourse());
     }
 
     @Test
     @Transactional
-    public void retrieveCourseForReview(){
-        Review review = entityManager.find(Review.class,50001L);
-        logger.info("review.getCourse -> {}" , review.getCourse());
+    public void findById_firstLevelCacheDemo() {
+        Course course = courseRepository.findById(10001L);
+        logger.info("First Course Retrieved {}", course);
+
+        Course course1 = courseRepository.findById(10001L);  //this is first level cache
+        logger.info("First Course Retrieved again  {}", course1);
+
+        assertEquals("Jpa", course.getName());
+        assertEquals("Jpa", course1.getName());
     }
+
+
 }
