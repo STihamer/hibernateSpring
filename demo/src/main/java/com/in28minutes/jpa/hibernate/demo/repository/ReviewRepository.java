@@ -2,6 +2,7 @@ package com.in28minutes.jpa.hibernate.demo.repository;
 
 import com.in28minutes.jpa.hibernate.demo.entity.Course;
 import com.in28minutes.jpa.hibernate.demo.entity.Review;
+import com.in28minutes.jpa.hibernate.demo.entity.ReviewRating;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import javax.transaction.Transactional;
 @Transactional
 public class ReviewRepository {
     @Autowired
-    EntityManager em;
+    private EntityManager em;
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -37,7 +38,7 @@ public class ReviewRepository {
     }
 
     public void playWithEntityManager() {
-        Review review1 = new Review("2.55", "aaaaa");
+        Review review1 = new Review(ReviewRating.FIVE, "aaaaa");
         em.persist(review1);
         Review review2 = findById(2L);
         em.persist(review2);

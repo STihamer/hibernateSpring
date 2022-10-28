@@ -1,9 +1,6 @@
 package com.in28minutes.jpa.hibernate.demo;
 
-import com.in28minutes.jpa.hibernate.demo.entity.Course;
-import com.in28minutes.jpa.hibernate.demo.entity.FullTimeEmployee;
-import com.in28minutes.jpa.hibernate.demo.entity.PartTimeEmployee;
-import com.in28minutes.jpa.hibernate.demo.entity.Student;
+import com.in28minutes.jpa.hibernate.demo.entity.*;
 import com.in28minutes.jpa.hibernate.demo.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 
 @SpringBootApplication

@@ -17,7 +17,8 @@ import java.util.List;
 @Entity
 @NamedQueries(value = {
         @NamedQuery(name = "query_get_all_courses", query = "Select c from Course c"),
-        @NamedQuery(name = "query_get_100", query = "select c from Course c where name  like '%Jpa%'")
+        @NamedQuery(name = "query_get_100", query = "select c from Course c where name  like '%Jpa%'"),
+        @NamedQuery(name = "query_get_all_courses_join_fetch", query = "Select c from Course c JOIN  fetch c.students")
 })
 @Cacheable
 @SQLDelete(sql = "update course set is_deleted=true where id = ?")  //this is not a jpa annotation this is a hibernate
@@ -33,7 +34,7 @@ public class Course {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course") //lazy fetch by default
     private List<Review> reviews = new ArrayList<>();
 
     @ManyToMany(mappedBy = "courses")

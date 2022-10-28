@@ -1,5 +1,6 @@
 package com.in28minutes.jpa.hibernate.demo.repository;
 
+import com.in28minutes.jpa.hibernate.demo.entity.Address;
 import com.in28minutes.jpa.hibernate.demo.entity.Passport;
 import com.in28minutes.jpa.hibernate.demo.entity.Student;
 import org.junit.jupiter.api.Test;
@@ -86,6 +87,18 @@ class StudentRepositoryTest {
         logger.info("courses............................ -> {} ", student.getCourses());
 
     }
+
+    @Transactional
+    @Test
+    void setAddressDetails() {
+        Student student = entityManager.find(Student.class, 20001L);
+        student.setAddress(new Address("No 101", "Some street", "Hyderabad"));
+        entityManager.flush();
+        logger.info("student.................... -> {} ", student.getAddress());
+        logger.info("courses............................ -> {} ", student.getCourses());
+
+    }
+
 
 
 }
